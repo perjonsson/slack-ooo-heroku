@@ -5,6 +5,16 @@ This bot can be told when you are out of the office. It will then listen to conv
 
 If you want a personal OoO bot that acts as you, check out [shaunburdick/slack-ooo-personal](https://github.com/shaunburdick/slack-ooo-personal)!
 
+##Deploying to Heroku
+1. `heroku apps:create my-company-ooobot`
+2. Copy `./release/js/config.default.js` to `./release/js/config.js` and add your [Slack bot API token](https://my.slack.com/services/new/bot).
+3. `git checkout -b production`
+4. Open `.gitignore` and remove `config.js`
+5. `git commit -a -m 'Added config.js to Heroku production branch'`
+6. `git push heroku production:master`
+
+Remember to never merge the production branch with your master since it contains your Slack token :)
+
 ##Usage
 To use this bot, you start a conversation with it:
 
