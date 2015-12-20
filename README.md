@@ -7,11 +7,12 @@ If you want a personal OoO bot that acts as you, check out [shaunburdick/slack-o
 
 ##Deploying to Heroku
 1. `heroku apps:create my-company-ooobot`
-2. Copy `./release/js/config.default.js` to `./release/js/config.js` and add your [Slack bot API token](https://my.slack.com/services/new/bot).
-3. `git checkout -b production`
+2. `git checkout -b production`
+3. Copy `./release/js/config.default.js` to `./release/js/config.js` and add the [API token](https://my.slack.com/services/new/bot) for your Slack bot user.
 4. Open `.gitignore` and remove `config.js`
-5. `git commit -a -m 'Added config.js to Heroku production branch'`
-6. `git push heroku production:master`
+5. `git add -A`
+6. `git commit -a -m 'Added config.js to Heroku production branch'`
+7. `git push heroku production:master`
 
 Remember to never merge the production branch with your master since it contains your Slack token :)
 
