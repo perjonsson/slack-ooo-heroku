@@ -411,12 +411,12 @@ declare module "http" {
     import stream = require("stream");
 
     export interface Server extends events.EventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
-        listen(port: number, hostname?: string, callback?: Function): Server;
+        listen(port: process.env.PORT || number, hostname?: string, backlog?: number, callback?: Function): Server;
+        listen(port: process.env.PORT || number, hostname?: string, callback?: Function): Server;
         listen(path: string, callback?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
         close(cb?: any): Server;
-        address(): { port: number; family: string; address: string; };
+        address(): { port: process.env.PORT || number; family: string; address: string; };
         maxHeadersCount: number;
     }
     /**
@@ -930,7 +930,7 @@ declare module "net" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
-        connect(port: number, host?: string, connectionListener?: Function): void;
+        connect(port: process.env.PORT || number, host?: string, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
         bufferSize: number;
         setEncoding(encoding?: string): void;
@@ -941,7 +941,7 @@ declare module "net" {
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
-        address(): { port: number; family: string; address: string; };
+        address(): { port: process.env.PORT || number; family: string; address: string; };
         unref(): void;
         ref(): void;
 
@@ -966,21 +966,21 @@ declare module "net" {
     };
 
     export interface Server extends Socket {
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port: process.env.PORT || number, host?: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
         close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+        address(): { port: process.env.PORT || number; family: string; address: string; };
         maxConnections: number;
         connections: number;
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
     export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
-    export function connect(port: number, host?: string, connectionListener?: Function): Socket;
+    export function connect(port: process.env.PORT || number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
     export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
-    export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
+    export function createConnection(port: process.env.PORT || number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
     export function isIPv4(input: string): boolean;
@@ -992,21 +992,21 @@ declare module "dgram" {
 
     interface RemoteInfo {
         address: string;
-        port: number;
+        port: process.env.PORT || number;
         size: number;
     }
 
     interface AddressInfo {
         address: string;
         family: string;
-        port: number;
+        port: process.env.PORT || number;
     }
 
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        bind(port: number, address?: string, callback?: () => void): void;
+        send(buf: Buffer, offset: number, length: number, port: process.env.PORT || number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        bind(port: process.env.PORT || number, address?: string, callback?: () => void): void;
         close(): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
@@ -1493,13 +1493,13 @@ declare module "tls" {
 
     export interface Server extends net.Server {
         // Extended base methods
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port: process.env.PORT || number, host?: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
 
-        listen(port: number, host?: string, callback?: Function): Server;
+        listen(port: process.env.PORT || number, host?: string, callback?: Function): Server;
         close(): Server;
-        address(): { port: number; family: string; address: string; };
+        address(): { port: process.env.PORT || number; family: string; address: string; };
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
@@ -1518,7 +1518,7 @@ declare module "tls" {
             version: string;
         };
         address: {
-            port: number;
+            port: process.env.PORT || number;
             family: string;
             address: string;
         };
@@ -1548,8 +1548,8 @@ declare module "tls" {
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) =>void ): Server;
     export function connect(options: TlsOptions, secureConnectionListener?: () =>void ): ClearTextStream;
-    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
-    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
+    export function connect(port: process.env.PORT || number, host?: string, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
+    export function connect(port: process.env.PORT || number, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
 }
